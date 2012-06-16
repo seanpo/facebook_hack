@@ -6,7 +6,7 @@ State = {
 
 
 // A user clicks on the object in the front end.
-$().click( function (){
+$(".room").click( function (){
 	// get the id;
 	var id = $(this).attr("room_id");
 	var room = Rooms.find({"room_id":id}, {});
@@ -45,12 +45,11 @@ if (Meteor.is_client) {
     var html = "";
     var room_lst = Rooms.find();
     for(room in room_lst){
-      html += "<div class='room_container'>";
-        html += "<div class='room_header'> " +
+        html += "<div class='room'> " +
 			            "<img class='room_main_user_pic' src='https://graph.facebook.com/" + user_id + "/picture'> </img>"+
 			            "<div class='room_title' >" + room.room_name + "</div>"+
                 "</div>";
-        var user_lst = room.user_lst;
+        /*var user_lst = room.user_lst;
         var user_count = 0;
         html += "<div class='room_footer'>";
           for ( user_id in user_lst ){
@@ -60,8 +59,7 @@ if (Meteor.is_client) {
                 break;
              }
           }
-        html += "</div>";
-      html += "</div>";
+        html += "</div>";*/
     }
     return html;
   };
