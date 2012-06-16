@@ -1,14 +1,31 @@
-<head>
-  <title>facebook_hack</title>
-</head>
+	<head>
+	  <title>
+		  Room-Board
+	  </title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	  <link rel="stylesheet" type="text/css" media="all" href="C:/Users/JM/facebook_hack/style.css" />
+  </head>
+	
+  <body>
+    {{> room_lst }}
+	</body>
 
-<body>
-  {{> hello}}
-</body>
-
-
-<template id="room_lst" name="hello">
-  <h1>Hello World!</h1>
-  {{rooms}}
-  <input type="button" value="Click" />
-</template>
+		<template id="room_lst" name="room_lst">
+			<div id="room_header">
+				<div class="room_main_user_pic">
+					<img src="http://www.buttonshut.com/Facebook-Buttons/Facebook-Buttons-1-10-.png"/> 
+				</div>
+				<div class="room_title">
+					TheReallyAwesomeVideoSharingApp
+				</div>
+			</div>
+			
+			<div id="room_footer">
+				<center>
+					<table id="room_users">
+						{{rooms}}
+						<td class="room" vid_id="1"><img src="http://www.buttonshut.com/Facebook-Buttons/Facebook-Buttons-1-10-.png" style="width:190px; height:190px; margin:50px 10px 0px 10px;"/></td>
+					</table>
+				</center>
+			</div>
+		</template>

@@ -1,43 +1,9 @@
-Rooms = new Meteor.collection("Rooms");
+Rooms = new Meteor.Collection("Rooms");
+
 State = {
 	play:0,
 	pause:1
 }
-
-
-// A user clicks on the object in the front end.
-$(".room").click( function (){
-	// get the id;
-	var id = $(this).attr("room_id");
-	var room = Rooms.find({"room_id":id}, {});
-	// hide template for  
-	$("#room_lst").hide();
-
-	Template.video_room.vid_name = function () {
-		return room.room_name;
-	}
-
-	Template.video_room.user_lst = function() {
-		var user_lst = room.user_lst;
-		var html = "<div id='user_lst'>";
-		for (user_id in user_lst){
-			html += "<div id='user'>";	
-			html += "<img class='user_pic' src='https://graph.facebook.com/" + user_id + "/picture'> </img>";
-			$.ajax({
-			  url: "test.html",
-			  context: document.body
-			  success: function (data){
-			    var obj = $.parseJSON(data);	
-			    html += "<div class='user_name'>" + obj.name + "</div>";
-			  }
-   	  })
-			html += "</div>;
-		}
-		html += "</div>";
-		return html;
-	}
-	$("#room").show();
-});
 
 if (Meteor.is_client) {
   Template.room_lst.rooms = function () {
@@ -63,7 +29,47 @@ if (Meteor.is_client) {
     }
     return html;
   };
+
+  // A user clicks on the object in the front end.
+  $(".room").click( function (){
+	  // get the id;
+	  var id = $(this).attr("room_id");
+	  var room = Rooms.find({"room_id":id}, {});
+	  // hide template for  
+	  $("#room_lst").hide();
+
+	  Template.video_room.vid_name = function () {
+		  return room.room_name;
+	  }
+
+	  Template.video_room.user_lst = function() {
+		  var user_lst = room.user_lst;
+		  var html = "<div id='user_lst'>";
+		  for (user_id in user_lst){
+			  html += "<div id='user'>";	
+			  html += "<img class='user_pic' src='https://graph.facebook.com/" + user_id + "/picture'> </img>";
+			  $.ajax({
+			    url: "https://graph.facebook.com/"+user_id,
+			    context: document.body,
+			    success: function (data){
+			      var obj = $.parseJSON(data);	
+			      html += "<div class='user_name'>" + obj.name + "</div>";
+			    }
+   	    });
+			  html += "</div>";
+		  }
+		  html += "</div>";
+		  return html;
+	  }
+	  $("#room").show();
+  });
 }
+
+/*Meteor.publish("play", function (room_id) {
+ return () 
+})
+
+Meteor.subscribe("play", room_id)
 
 function nextVideo(room_id){
   var room = Rooms.find({"room_id":room_id},{});
@@ -112,12 +118,11 @@ function onAddedToQueue(vid_id){
 }
 
 
-
+*/
 if (Meteor.is_server) {
   Meteor.startup(function () {
-	
 	  if (Rooms.find().count() === 0){
-		Rooms.insert({
+		  Rooms.insert({
 		      fb_id:"",
 		      room_name:"Global",
 		      current_video: {
@@ -129,8 +134,8 @@ if (Meteor.is_server) {
 		      video_lst:["8fJjt068s6s"],
 		      user_lst:[],
 		      room_id:1
-		}});
-	}
+		  });
+    }
     // code to run on server at startup
-  });
+ });
 }
