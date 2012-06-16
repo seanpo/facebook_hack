@@ -1,0 +1,39 @@
+#room_header {
+	border-style:solid;
+	width:90%;
+	height:30%;
+	margin: 0 50px 10px 50px;
+}
+
+.room_main_user_pic {
+	width:30%;
+	text-align:center;
+	position:relative;
+	display:inline-block;
+}
+
+.room_main_user_pic img{
+	width:190px;
+	height:190px;
+	margin-top:0px;
+}
+
+.room_title {
+	width:69%;
+	text-align:center;
+	position:relative;
+	display:inline-block;
+	
+	font-size: 40px;
+	font-weight: bold;
+	font-family: arial;
+	bottom: 90px;
+}
+
+#room_footer {
+	border-style:solid;
+	width:90%;
+	height:50%;
+	margin: 0 50px 0 50px;
+}
+
